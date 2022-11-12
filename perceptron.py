@@ -1,9 +1,9 @@
 #-------------------------------------------------------------------------
 # AUTHOR: Grecia Alvarado
 # FILENAME: perceptron.py
-# SPECIFICATION: description of the program
+# SPECIFICATION: Build a single-layer and multi-layer perceptron classifiers
 # FOR: CS 4210- Assignment #4
-# TIME SPENT: how long it took you to complete the assignment
+# TIME SPENT: perceptron.py - 15 minutes
 #-----------------------------------------------------------*/
 
 #IMPORTANT NOTE: YOU HAVE TO WORK WITH THE PYTHON LIBRARIES numpy AND pandas to complete this code.
@@ -27,8 +27,11 @@ df = pd.read_csv('optdigits.tes', sep=',', header=None) #reading the data by usi
 X_test = np.array(df.values)[:,:64]    #getting the first 64 fields to form the feature data for test
 y_test = np.array(df.values)[:,-1]     #getting the last field to form the class label for test
 
-accuracy = 0
-highestAccuracy = 0
+accuracy_S = 0.0
+highestAccuracy_S = 0.0
+
+accuracy_ML = 0.0
+highestAccuracy_ML = 0.0
 for w in n: #iterates over n
 
     for b in r: #iterates over r
@@ -49,23 +52,42 @@ for w in n: #iterates over n
             #for (x_testSample, y_testSample) in zip(X_test, y_test):
             #to make a prediction do: clf.predict([x_testSample])
             #--> add your Python code here
-            accurate = 0
-            length = 0
-            for (x_testSample, y_testSample) in zip(X_test, y_test):
-               #to make a prediction do: clf.predict([x_testSample])
-               prediction = clf.predict([x_testSample])
-               if prediction == y_testSample:
-                  accurate += 1
-                  length += 1
 
-            #check if the calculated accuracy is higher than the previously one calculated for each classifier. If so, update the highest accuracy and print it together with the network hyperparameters
-            #Example: "Highest Perceptron accuracy so far: 0.88, Parameters: learning rate=0.01, shuffle=True"
-            #Example: "Highest MLP accuracy so far: 0.90, Parameters: learning rate=0.02, shuffle=False"
-            #--> add your Python code here
-            accuracy = accurate / length
-            if accuracy > highestAccuracy:
-               highestAccuracy = accuracy
-               print("Highest Perceptron accuracy so far: ", accuracy, " Parameters: learning rate = ",w, ", shuffle = ", b)
+            if a == 0:
+               accurate = 0
+               length = 0
+               for (x_testSample, y_testSample) in zip(X_test, y_test):
+                  prediction = clf.predict([x_testSample])
+                  if prediction == y_testSample:
+                     accurate += 1
+                     length += 1
+
+               #check if the calculated accuracy is higher than the previously one calculated for each classifier. If so, update the highest accuracy and print it together with the network hyperparameters
+               #Example: "Highest Perceptron accuracy so far: 0.88, Parameters: learning rate=0.01, shuffle=True"
+               #Example: "Highest MLP accuracy so far: 0.90, Parameters: learning rate=0.02, shuffle=False"
+               #--> add your Python code here
+               accuracy_S = accurate / length
+               if accuracy_S > highestAccuracy_S:
+                  highestAccuracy_S = accuracy_S
+                  print("Highest Perceptron accuracy so far: ", accuracy_S, " Parameters: learning rate = ",w, ", shuffle = ", b)
+            
+            else:
+               accurate = 0
+               length = 0
+               for (x_testSample, y_testSample) in zip(X_test, y_test):
+                  prediction = clf.predict([x_testSample])
+                  if prediction == y_testSample:
+                     accurate += 1
+                     length += 1
+
+               #check if the calculated accuracy is higher than the previously one calculated for each classifier. If so, update the highest accuracy and print it together with the network hyperparameters
+               #Example: "Highest Perceptron accuracy so far: 0.88, Parameters: learning rate=0.01, shuffle=True"
+               #Example: "Highest MLP accuracy so far: 0.90, Parameters: learning rate=0.02, shuffle=False"
+               #--> add your Python code here
+               accuracy_ML = accurate / length
+               if accuracy_ML > highestAccuracy_ML:
+                  highestAccuracy_ML = accuracy_ML
+                  print("Highest MLP accuracy so far: ", accuracy_ML, " Parameters: learning rate = ",w, ", shuffle = ", b)
 
 
 
